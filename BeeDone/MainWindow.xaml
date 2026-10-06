@@ -2,6 +2,7 @@
 <Window
     x:Class="BeeDone.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:Models="using:BeeDone:Models"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:BeeDone"
@@ -13,6 +14,13 @@
         <MicaBackdrop />
     </Window.SystemBackdrop>
 
+    <!--<StackPanel>
+        <TextBox x:Name="txtNom" Header="Nom" />
+        <Button Click="btnValider_Clicker" Content="Saluer" />
+        <TextBlock x:Name="txtMessage"/>
+    </StackPanel>-->
+    
+    
     <Grid
         Padding="16"
         ColumnSpacing="12"
@@ -71,16 +79,19 @@
             </Grid.ColumnDefinitions>
 
             <TextBox
+                x:Name="txtNouvelleTache"
                 Grid.Column="0"
                 Header="Nouvelle tâche"
                 PlaceholderText="Ex. : Réviser WinUI" />
 
             <!--  Bouton d'ajout  -->
             <Button
+                x:Name="btnAjoutTache"
                 Grid.Column="1"
                 VerticalAlignment="Bottom"
                 AutomationProperties.Name="Ajouter la tâche"
                 Background="#FFC93C"
+                Click="btnAjouterTache_Click"
                 Foreground="#1A1A1A">
                 <StackPanel Orientation="Horizontal" Spacing="8">
                     <SymbolIcon Symbol="Add" />
@@ -98,19 +109,15 @@
             BorderBrush="#FFC93C"
             BorderThickness="1.5"
             CornerRadius="8">
-            <ListView AutomationProperties.Name="Liste des tâches">
-                <ListViewItem>
-                    <StackPanel Padding="0,12">
-                        <TextBlock Text="Remettre le projet de session" />
-                        <TextBlock FontSize="12" Text="05-10-2026 - Urgent et important" />
-                    </StackPanel>
-                </ListViewItem>
-                <ListViewItem>
-                    <StackPanel Padding="0,12">
-                        <TextBlock Text="Réparer la fuite d'eau" />
-                        <TextBlock FontSize="12" Text="05-10-2026 - Urgent et important" />
-                    </StackPanel>
-                </ListViewItem>
+            <ListView x:Name="lvTaches" AutomationProperties.Name="Liste des tâches">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType=Models:Tache>
+                        <StackPanel Padding="0,12">
+                            <TextBlock Text="{x:Bind Nom}" />
+                            <TextBlock FontSize="12" Text="{x:Bind DateAjout}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
             </ListView>
         </Border>
 
@@ -187,6 +194,6 @@
             Background="#FFD6D6"
             Content="Supprimer la tâche sélectionnée"
             Foreground="#8B1A1A" />
-    </Grid>
+    </Grid> -->
 
 </Window>
